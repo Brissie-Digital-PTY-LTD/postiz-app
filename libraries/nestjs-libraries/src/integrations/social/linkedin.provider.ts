@@ -63,15 +63,12 @@ export class LinkedinProvider extends SocialAbstract implements SocialProvider {
   oneTimeToken = true;
 
   isBetweenSteps = false;
-  scopes = [
-    'openid',
-    'profile',
-    'w_member_social',
-    'r_basicprofile',
-    'rw_organization_admin',
-    'w_organization_social',
-    'r_organization_social',
-  ];
+  // LexiLive: member-level posting only. `r_basicprofile` is deprecated and can
+  // no longer be granted to a new LinkedIn app, and the three organization
+  // scopes come from the Advertising API product, which is still in review.
+  // checkScopes() requires every scope listed here to be granted, so asking for
+  // scopes we do not hold yet would block the personal profile channel too.
+  scopes = ['openid', 'profile', 'w_member_social'];
   override maxConcurrentJob = 8; // LinkedIn limits are daily budgets
   refreshWait = true;
   editor = 'normal' as const;
