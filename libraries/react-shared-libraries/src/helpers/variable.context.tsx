@@ -26,10 +26,6 @@ interface VariableContextInterface {
   isSecured: boolean;
   disableImageCompression: boolean;
   disableXAnalytics: boolean;
-  // LexiLive: set DISABLE_AGENT=true when no OpenAI key is configured. The
-  // CopilotKit provider otherwise blocks the first paint of every page while
-  // its runtime call hangs, which makes the whole app feel broken.
-  disableAgent: boolean;
   language: string;
   dub: boolean;
   transloadit: string[];
@@ -66,7 +62,6 @@ const VariableContext = createContext({
   appleClientId: '',
   disableImageCompression: false,
   disableXAnalytics: false,
-  disableAgent: false,
   language: '',
   dub: false,
   transloadit: [],
