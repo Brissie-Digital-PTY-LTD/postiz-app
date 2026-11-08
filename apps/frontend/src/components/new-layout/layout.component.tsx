@@ -46,38 +46,10 @@ import { TrialTracker } from '@gitroom/frontend/components/layout/gtm.component'
 import { setSentryUser } from '@gitroom/react/sentry/initialize.sentry.client';
 import { setUserTimezone } from '@gitroom/frontend/components/layout/set.timezone';
 
-// LexiLive: with no OpenAI key configured the Copilot runtime call hangs until
-// nginx times it out, and CopilotKit blocks the first paint of every page while
-// it waits. DISABLE_AGENT=true renders the app without the provider instead.
-const AgentProvider = ({
-  disabled,
-  backendUrl,
-  children,
-}: {
-  disabled: boolean;
-  backendUrl: string;
-  children: ReactNode;
-}) => {
-  if (disabled) {
-    return <>{children}</>;
-  }
-
-  return (
-    <CopilotKit
-      credentials="include"
-      runtimeUrl={backendUrl + '/copilot/chat'}
-      useSingleEndpoint={true}
-      showDevConsole={false}
-    >
-      {children}
-    </CopilotKit>
-  );
-};
-
 export const LayoutComponent = ({ children }: { children: ReactNode }) => {
   const fetch = useFetch();
 
-  const { backendUrl, billingEnabled, isGeneral, disableAgent } = useVariables();
+  const { backendUrl, billingEnabled, isGeneral } = useVariables();
 
   // Feedback icon component attaches Sentry feedback to a top-bar icon when DSN is present
   const searchParams = useSearchParams();
@@ -109,7 +81,12 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
 
   return (
     <ContextWrapper user={user}>
-      <AgentProvider disabled={disableAgent} backendUrl={backendUrl}>
+      <CopilotKit
+        credentials="include"
+        runtimeUrl={backendUrl + '/copilot/chat'}
+        useSingleEndpoint={true}
+        showDevConsole={false}
+      >
         <MantineWrapper>
           <ToolTip />
           <Toaster />
@@ -220,7 +197,7 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
             </div>
           </CheckPayment>
         </MantineWrapper>
-      </AgentProvider>
+      </CopilotKit>
     </ContextWrapper>
   );
 };
