@@ -55,11 +55,8 @@ export const PlatformAnalytics = () => {
   const { data, isLoading } = useSWR('analytics-list', load, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
-    revalidateIfStale: false,
-    revalidateOnMount: true,
     refreshWhenHidden: false,
     refreshWhenOffline: false,
-    fallbackData: [],
   });
   const sortedIntegrations = useMemo(() => {
     return orderBy(
