@@ -26,11 +26,14 @@ export class LinkedinPageProvider
   override isBetweenSteps = true;
   override refreshWait = true;
   override maxConcurrentJob = 2; // LinkedIn Page has professional posting limits
+  // LexiLive: company page posting needs the organization scopes, which are
+  // granted by the Advertising API product (approved for this app). Unlike the
+  // member provider we keep them here — a Page channel is useless without them.
+  // `r_basicprofile` is deprecated and removed; it is never granted to new apps.
   override scopes = [
     'openid',
     'profile',
     'w_member_social',
-    'r_basicprofile',
     'rw_organization_admin',
     'w_organization_social',
     'r_organization_social',
