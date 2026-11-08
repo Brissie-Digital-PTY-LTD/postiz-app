@@ -142,11 +142,8 @@ const OnboardingStep1: FC<{ onNext: () => void; onSkip: () => void }> = ({
   const { data: integrations } = useSWR('/integrations/list', load, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
-    revalidateIfStale: false,
-    revalidateOnMount: true,
     refreshWhenHidden: false,
     refreshWhenOffline: false,
-    fallbackData: [],
   });
 
   const sortedIntegrations = useMemo(() => {

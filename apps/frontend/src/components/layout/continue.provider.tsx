@@ -26,11 +26,8 @@ export const ContinueProvider: FC = () => {
   const { data: integrations } = useSWR('/integrations/list', load, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
-    revalidateIfStale: false,
-    revalidateOnMount: true,
     refreshWhenHidden: false,
     refreshWhenOffline: false,
-    fallbackData: [],
   });
   const refreshList = useCallback(() => {
     mutate('/integrations/list');
