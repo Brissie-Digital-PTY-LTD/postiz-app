@@ -718,7 +718,8 @@ export class LinkedinPageProvider
             actor: `urn:li:organization:${integration.internalId}`,
             object: id,
             message: {
-              text: this.fixText(fields.post),
+              // Same comments endpoint as LinkedinProvider: plain text.
+              text: fields.post,
             },
           }),
         }

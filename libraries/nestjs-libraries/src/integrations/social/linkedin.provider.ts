@@ -804,7 +804,9 @@ export class LinkedinProvider extends SocialAbstract implements SocialProvider {
           actor,
           object: parentPostId,
           message: {
-            text: this.fixText(post.message),
+            // Comments API message.text is plain text, not little format.
+            // fixText() would publish the backslashes (utm\_source).
+            text: post.message,
           },
         }),
       }
